@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Just Draw</string>
+
+    <string name="count_1000">1000</string>
+    <string name="count_5000">5000</string>
+    <string name="count_10000">10000</string>
+
+    <string name="title_native">Native Canvas</string>
+    <string name="title_native_pro">Native Canvas Pro</string>
+    <string name="title_web">Web</string>
+    <string name="title_v8">V8 &amp; Canvas</string>
+
+    <string name="format_time">%s ms</string>
+</resources>

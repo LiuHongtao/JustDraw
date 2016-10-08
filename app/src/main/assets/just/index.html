@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+            <title>HTML5 Canvas</title>           
+        </meta>
+    </head>
+    <body>
+        <!-- 添加canvas标签，并加上红色边框以便于在页面上查看 -->
+        <canvas id="myCanvas">
+            您的浏览器不支持canvas标签。
+        </canvas>
+        <script type="text/javascript">
+            function mRandom(num){
+                return parseInt(Math.random()*num+1);
+            }
+
+            // 通过深入Document内部对body进行检测，获取窗口大小
+            if (document.documentElement  && document.documentElement.clientHeight && document.documentElement.clientWidth)
+            {
+                winHeight = document.documentElement.clientHeight;
+                winWidth = document.documentElement.clientWidth;
+            }
+
+            //获取Canvas对象(画布)
+            var canvas = document.getElementById("myCanvas");
+
+            canvas.width = winWidth;
+            canvas.height = winHeight;
+
+            //简单地检测当前浏览器是否支持Canvas对象，以免在一些不支持html5的浏览器中提示语法错误
+            if(canvas.getContext){
+                //获取对应的CanvasRenderingContext2D对象(画笔)
+                var ctx = canvas.getContext("2d");
+
+                var type = 4;
+                var maxNum = $count$;
+
+                for (var i = 0; i < maxNum; i++) {
+                    var x = mRandom(winWidth);
+                    var y = mRandom(winHeight);
+
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);//将画笔移到x0,y0处
+                    ctx.lineTo(x + 300, y);//从x0,y0到x1,y1画一条线
+                    ctx.closePath();
+
+                    ctx.rect(x, y, 20, 20);
+
+                    ctx.arc(x, y, 2, 0, 360, false);
+
+                    ctx.stroke();
+                }
+            }
+        </script>
+    </body>
+</html>
