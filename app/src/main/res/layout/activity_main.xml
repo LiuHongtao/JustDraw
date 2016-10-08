@@ -45,6 +45,12 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/title_native_path"
+        android:onClick="toNativePath"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/title_native_pro"
         android:onClick="toNativePro"/>
 

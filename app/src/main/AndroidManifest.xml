@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.NativeActivity" />
+        <activity android:name=".activity.NativePathActivity" />
         <activity android:name=".activity.NativeProActivity" />
         <activity android:name=".activity.WebActivity" />
         <activity android:name=".activity.V8Activity" />

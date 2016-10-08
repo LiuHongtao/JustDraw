@@ -6,6 +6,7 @@
     <string name="count_10000">10000</string>
 
     <string name="title_native">Native Canvas</string>
+    <string name="title_native_path">Native Canvas with Path</string>
     <string name="title_native_pro">Native Canvas Pro</string>
     <string name="title_web">Web</string>
     <string name="title_v8">V8 &amp; Canvas</string>

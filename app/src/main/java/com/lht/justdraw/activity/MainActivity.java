@@ -51,6 +51,13 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         startActivity(intent);
     }
 
+    public void toNativePath(View view) {
+        Intent intent = new Intent();
+        intent.putExtra("count", mCount);
+        intent.setClass(this, NativePathActivity.class);
+        startActivity(intent);
+    }
+
     public void toNativePro(View view) {
         Intent intent = new Intent();
         intent.putExtra("count", mCount);
