@@ -66,7 +66,7 @@ View的`onDraw(Canvas canvas)`方法中循环执行Path绘制，单次绘制如�
 
 ## Native绘制性能
 
-通过**Native Canvas**和**Native Canvas with Path**可发现，Native绘制中，直接使用`canvas.drawXXX`和`path.addXXX`+`canvas.drawPath`之间性能存在差异，后者较前者慢。原因可参见[Path绘制和硬件加速](http://stackoverflow.com/questions/15039829/drawing-paths-and-hardware-acceleration)
+通过**Native Canvas**和**Native Canvas with Path**可发现，Native绘制中，直接使用`canvas.drawXXX`和`path.addXXX`+`canvas.drawPath`之间性能存在差异，后者较前者慢。原因可参见[《Path绘制和硬件加速》](http://stackoverflow.com/questions/15039829/drawing-paths-and-hardware-acceleration)
 
 > Paths are always rendered using the CPU. When the app is hardware accelerated this means the renderer will first draw your path using the CPU into a bitmap, then upload that bitmap as a texture to the GPU and finally draw the texture on screen.
 
