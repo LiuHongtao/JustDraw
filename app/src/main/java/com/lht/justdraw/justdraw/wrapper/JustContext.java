@@ -134,8 +134,6 @@ public class JustContext extends JustV8Object {
 
     public void setLineWidth(Number lineWidth) {
         mPaintStroke.setStrokeWidth(lineWidth.intValue());
-
-//        mV8Object.add("lineWidth", lineWidth.intValue());
     }
 
     public void setLineDash(V8Array intervals) {
@@ -269,8 +267,6 @@ public class JustContext extends JustV8Object {
     public void setGlobalAlpha(Number alpha) {
         mPaintFill.setAlpha((int)(alpha.floatValue() * 255));
         mPaintStroke.setAlpha((int)(alpha.floatValue() * 255));
-
-//        mV8Object.add("globalAlpha", alpha.floatValue());
     }
 
     public void save() {
