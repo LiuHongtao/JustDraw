@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.V8Activity">
 
-    <com.lht.justdraw.justdraw.JustViewGroup
+    <com.lht.justcanvas.JustViewGroup
         android:id="@+id/view_group"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

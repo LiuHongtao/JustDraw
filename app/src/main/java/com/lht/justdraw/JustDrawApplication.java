@@ -2,6 +2,7 @@ package com.lht.justdraw;
 
 import android.app.Application;
 
+import com.lht.justcanvas.JustConfig;
 import com.lht.justdraw.util.ScreenUtil;
 
 /**
@@ -14,5 +15,6 @@ public class JustDrawApplication extends Application {
         super.onCreate();
 
         ScreenUtil.GetInfo(this);
+        JustConfig.init(this);
     }
 }

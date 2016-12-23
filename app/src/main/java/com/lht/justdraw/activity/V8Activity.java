@@ -7,10 +7,10 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.eclipsesource.v8.V8;
+import com.lht.justcanvas.JustJsCore;
+import com.lht.justcanvas.JustViewGroup;
+import com.lht.justcanvas.wrapper.JustWindow;
 import com.lht.justdraw.R;
-import com.lht.justdraw.justdraw.JustJsCore;
-import com.lht.justdraw.justdraw.JustViewGroup;
-import com.lht.justdraw.justdraw.wrapper.JustWindow;
 import com.lht.justdraw.util.FileUtil;
 
 public class V8Activity extends AppCompatActivity {

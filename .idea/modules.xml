@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/JustDraw.iml" filepath="$PROJECT_DIR$/JustDraw.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/justcanvas/justcanvas.iml" filepath="$PROJECT_DIR$/justcanvas/justcanvas.iml" />
     </modules>
   </component>
 </project>
