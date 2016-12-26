@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.eclipsesource.v8.V8;
@@ -38,10 +39,14 @@ public class V8Activity extends AppCompatActivity {
         js = FileUtil.getFromAssets(this, "v8.js");
         js = js.replace("$count$", mCount + "");
 
-        thread.start();
+        draw(null);
     }
 
-    private Thread thread = new Thread() {
+    public void draw(View v) {
+        new Thread(runnable).start();
+    }
+
+    private Runnable runnable = new Runnable() {
         @Override
         public void run() {
             long start = System.currentTimeMillis();
@@ -51,9 +56,10 @@ public class V8Activity extends AppCompatActivity {
             v8Runtime.add("window", mJustWindow.getV8Object());
 
             JustJsCore.run(js);
-            JustJsCore.clean(mJustWindow);
 
             mJustWindow.drawWindow();
+
+            JustJsCore.clean(mJustWindow);
 
             long end = System.currentTimeMillis();
             time = end - start;

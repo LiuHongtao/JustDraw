@@ -16,4 +16,12 @@
         <item name="android:background">@color/colorAlphaBg</item>
         <item name="android:textColor">@color/colorMsgText</item>
     </style>
+
+    <style name="DrawButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">bottom|right</item>
+        <item name="android:text">@string/btn_draw</item>
+        <item name="android:onClick">draw</item>
+    </style>
 </resources>

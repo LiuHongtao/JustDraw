@@ -121,6 +121,7 @@ public class JustContext extends JustV8Object {
 
     @Override
     public void clean() {
+        mShapeList.clear();
         mObject.release();
     }
 
@@ -150,12 +151,12 @@ public class JustContext extends JustV8Object {
 
     public void fillRect(Number x, Number y, Number width, Number height) {
         mShapeList.add(new DrawRect(x, y, width, height,
-                mPaintFill.clonePaint()));
+                new CloneablePaint(mPaintFill)));
     }
 
     public void strokeRect(Number x, Number y, Number width, Number height) {
         mShapeList.add(new DrawRect(x, y, width, height,
-                mPaintStroke.clonePaint()));
+                new CloneablePaint(mPaintStroke)));
     }
 
     public void beginPath() {
@@ -168,11 +169,11 @@ public class JustContext extends JustV8Object {
     }
 
     public void fill() {
-        mShapeList.add(new DrawPath(mPath, mPaintFill.clonePaint()));
+        mShapeList.add(new DrawPath(mPath, new CloneablePaint(mPaintFill)));
     }
 
     public void stroke() {
-        mShapeList.add(new DrawPath(mPath, mPaintStroke.clonePaint()));
+        mShapeList.add(new DrawPath(mPath, new CloneablePaint(mPaintStroke)));
     }
 
     public void moveTo(Number x, Number y) {
@@ -251,7 +252,7 @@ public class JustContext extends JustV8Object {
     }
 
     public void fillText(String text, Number x, Number y) {
-        mShapeList.add(new DrawText(text, x, y, mPaintFill.clonePaint()));
+        mShapeList.add(new DrawText(text, x, y, new CloneablePaint(mPaintFill)));
     }
 
     public V8Object measureText(String str) {
@@ -271,13 +272,13 @@ public class JustContext extends JustV8Object {
 
     public void save() {
         mShapeList.add(new DrawSave());
-        mPaintFillSave = mPaintFill.clonePaint();
-        mPaintStrokeSave = mPaintStroke.clonePaint();
+        mPaintFillSave = new CloneablePaint(mPaintFill);
+        mPaintStrokeSave = new CloneablePaint(mPaintStroke);
     }
 
     public void restore() {
         mShapeList.add(new DrawRestore());
-        mPaintFill = mPaintFillSave.clonePaint();
-        mPaintStroke = mPaintStrokeSave.clonePaint();
+        mPaintFill = new CloneablePaint(mPaintFill);
+        mPaintStroke = new CloneablePaint(mPaintStroke);
     }
 }

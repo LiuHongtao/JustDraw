@@ -2,8 +2,7 @@ package com.lht.justdraw.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -49,27 +48,11 @@ public class WebActivity extends AppCompatActivity {
         int count = getIntent().getIntExtra("count", 1000);
         html = FileUtil.getFromAssets(this, "just/index.html");
         html = html.replace("$count$", count + "");
-        loadHtml();
+        draw(null);
     }
 
-    private void loadHtml() {
+    public void draw(View v) {
         time = System.currentTimeMillis();
         mWebView.loadDataWithBaseURL("file:///android_asset/just/", html, "text/html", "utf-8", null);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_web, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_refresh:
-                loadHtml();
-                break;
-        }
-        return true;
     }
 }

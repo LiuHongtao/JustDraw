@@ -65,4 +65,10 @@
         android:layout_height="wrap_content"
         android:text="@string/title_v8"
         android:onClick="toV8"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_jc"
+        android:onClick="toJC"/>
 </LinearLayout>

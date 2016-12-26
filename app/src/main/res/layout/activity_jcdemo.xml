@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_native"
+    android:id="@+id/activity_jcdemo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lht.justdraw.activity.NativeActivity">
+    tools:context="com.lht.justdraw.activity.JCDemoActivity">
 
-    <com.lht.justdraw.view.NativeView
-        android:id="@+id/sv_canvas"
+    <com.lht.justcanvas.JustView
+        android:id="@+id/justview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <TextView
         style="@style/MsgTextStyle"

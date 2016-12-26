@@ -8,17 +8,11 @@ import android.graphics.Paint;
  */
 public class CloneablePaint extends Paint {
 
-    public CloneablePaint clonePaint() {
-        CloneablePaint paint = new CloneablePaint();
-        paint.setColor(getColor());
-        paint.setAlpha(getAlpha());
-        paint.setStyle(getStyle());
-        paint.setStrokeWidth(getStrokeWidth());
-        paint.setTextSize(getTextSize());
-        paint.setPathEffect(getPathEffect());
-        paint.setFlags(getFlags());
+    public CloneablePaint() {
+    }
 
-        return paint;
+    public CloneablePaint(CloneablePaint paint) {
+        super(paint);
     }
 
     /**
