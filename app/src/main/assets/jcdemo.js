@@ -1,37 +1,51 @@
-JustFunc = function (name, parameter) {
-    this.name = name;
-    this.parameter = parameter;
-}
-
 JustCanvas = function () {
-    this._functions = [];
+    this._functions = "";
+    this._times = 0;
+
     this.flush = function() {
-        call(JSON.stringify(this._functions));
-        this._functions = [];
+        call(this._functions, this._times);
+        this._functions = "";
+        this._times = 0;
     };
+
     this.log = function(msg) {
-        this._functions.push(new JustFunc("log", [msg]));
+        this._functions += "[log]" + msg + ",&";
+        this._times++;
     };
+
     this.beginPath = function() {
-        this._functions.push(new JustFunc("beginPath"));
+        this._functions += "[beginPath]&";
+        this._times++;
     };
+
     this.closePath = function() {
-        this._functions.push(new JustFunc("closePath"));
+        this._functions += "[closePath]&";
+        this._times++;
     };
+
     this.stroke = function() {
-        this._functions.push(new JustFunc("stroke"));
+        this._functions += "[stroke]&";
+        this._times++;
     };
+
     this.moveTo = function(x, y) {
-        this._functions.push(new JustFunc("moveTo", [x, y]));
+        this._functions += "[moveTo]" + x + "," + y + ",&";
+        this._times++;
     };
+
     this.lineTo = function(x, y) {
-        this._functions.push(new JustFunc("lineTo", [x, y]));
+        this._functions += "[lineTo]" + x + "," + y + ",&";
+        this._times++;
     };
+
     this.arc = function(x, y, r, sAngle, eAngle, counterclockwise) {
-        this._functions.push(new JustFunc("arc", [x, y, r, sAngle, eAngle, counterclockwise]));
+        this._functions += "[arc]" + x + "," + y + "," + r + "," + sAngle + "," + eAngle + "," + counterclockwise + ",&";
+        this._times++;
     };
+
     this.rect = function(x, y, width, height) {
-        this._functions.push(new JustFunc("rect", [x,y,width,height]));
+        this._functions += "[rect]" + x + "," + y + "," + width + "," + height + ",&";
+        this._times++;
     };
 }
 
@@ -40,7 +54,7 @@ function random(num){
 }
 
 ctx = new JustCanvas();
-for (var i = 0; i < 1000; i++) {
+for (var i = 0; i < 10000; i++) {
     var x = random(screenWidth);
     var y = random(screenHeight);
 

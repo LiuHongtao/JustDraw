@@ -35,10 +35,18 @@ public class JCDemo {
         mPaintStroke.setStyle(Paint.Style.STROKE);
     }
 
-    public void call(JustCall call) {
-        switch (call.getName()) {
+    public void call(String call) {
+        int index = call.indexOf(']');
+        int length = call.length();
+        String name = call.substring(1, index);
+        String[] parameter = null;
+        if (index != length - 1) {
+            parameter = splitBy(call.substring(index + 1, length), 10, ',');
+        }
+
+        switch (name) {
             case "log":
-                log(call.getParameter());
+                log(parameter);
                 break;
             case "beginPath":
                 beginPath();
@@ -50,22 +58,22 @@ public class JCDemo {
                 stroke();
                 break;
             case "moveTo":
-                moveTo(call.getParameter());
+                moveTo(parameter);
                 break;
             case "lineTo":
-                lineTo(call.getParameter());
+                lineTo(parameter);
                 break;
             case "arc":
-                arc(call.getParameter());
+                arc(parameter);
                 break;
             case "rect":
-                rect(call.getParameter());
+                rect(parameter);
                 break;
         }
     }
 
-    private void log(Object[] parameter) {
-        Log.d(LOG_TAG, parameter[0].toString());
+    private void log(String[] parameter) {
+        Log.d(LOG_TAG, parameter[0]);
     }
 
     private void beginPath() {
@@ -81,8 +89,8 @@ public class JCDemo {
         mShapeList.add(new DrawPath(mPath, mPaintStroke.clonePaint()));
     }
 
-    private void moveTo(Object[] parameter) {
-        moveTo(((Integer)parameter[0]).floatValue(), (int)parameter[1]);
+    private void moveTo(String[] parameter) {
+        moveTo(getFloat(parameter[0]), getInt(parameter[1]));
     }
 
     private void moveTo(float x, float y) {
@@ -92,8 +100,8 @@ public class JCDemo {
         mPath.moveTo(mStartX, mStartY);
     }
 
-    private void lineTo(Object[] parameter) {
-        lineTo(int2Float(parameter[0]), int2Float(parameter[1]));
+    private void lineTo(String[] parameter) {
+        lineTo(getFloat(parameter[0]), getFloat(parameter[1]));
     }
 
     private void lineTo(float x, float y) {
@@ -105,11 +113,11 @@ public class JCDemo {
         }
     }
 
-    private void arc(Object[] parameter) {
-        float x = int2Float(parameter[0]), y = int2Float(parameter[1]),
-                r = int2Float(parameter[2]), sAngle = int2Float(parameter[3]),
-                eAngle = int2Float(parameter[4]);
-        boolean counterclockwise = (boolean)parameter[5];
+    private void arc(String[] parameter) {
+        float x = getFloat(parameter[0]), y = getFloat(parameter[1]),
+                r = getFloat(parameter[2]), sAngle = getFloat(parameter[3]),
+                eAngle = getFloat(parameter[4]);
+        boolean counterclockwise = getBoolean(parameter[5]);
 
         RectF rectF = new RectF(x - r, y - r, x + r, y + r);
 
@@ -125,13 +133,42 @@ public class JCDemo {
         mPath.addArc(rectF, sAngle, eAngle - sAngle);
     }
 
-    private void rect(Object[] parameter) {
-        float x = int2Float(parameter[0]), y = int2Float(parameter[1]),
-                width = int2Float(parameter[2]), height = int2Float(parameter[3]);
+    private void rect(String[] parameter) {
+        float x = getFloat(parameter[0]), y = getFloat(parameter[1]),
+                width = getFloat(parameter[2]), height = getFloat(parameter[3]);
         mPath.addRect(x, y, x + width, y + height, Path.Direction.CW);
     }
 
-    private float int2Float(Object integer) {
-        return ((Integer)integer).floatValue();
+    private int getInt(Object param) {
+        return Integer.valueOf(param.toString());
+    }
+
+    private float getFloat(Object param) {
+        return Float.valueOf(param.toString());
+    }
+
+    private boolean getBoolean(Object param) {
+        return Boolean.valueOf(param.toString());
+    }
+
+    public static String[] splitBy(String content, int size, char symbol) {
+        String[] result = new String[size];
+        int index = 0, length = content.length(), start, end;
+        int[] posForSymbol = new int[size];
+
+        for (int i = 0; i < length; i++) {
+            if (content.charAt(i) == symbol) {
+                posForSymbol[index++] = i;
+            }
+        }
+
+        start = 0;
+        for (int i = 0; i < index; i++) {
+            end = posForSymbol[i];
+            result[i] = content.substring(start, end);
+            start = end + 1;
+        }
+
+        return result;
     }
 }

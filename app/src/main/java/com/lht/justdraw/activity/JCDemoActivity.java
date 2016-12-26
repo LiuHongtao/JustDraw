@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.alibaba.fastjson.JSON;
 import com.eclipsesource.v8.JavaVoidCallback;
 import com.eclipsesource.v8.V8;
 import com.eclipsesource.v8.V8Array;
@@ -14,7 +13,6 @@ import com.lht.justcanvas.JustConfig;
 import com.lht.justcanvas.JustView;
 import com.lht.justdraw.R;
 import com.lht.justdraw.jcdemo.JCDemo;
-import com.lht.justdraw.jcdemo.JustCall;
 import com.lht.justdraw.util.FileUtil;
 
 public class JCDemoActivity extends AppCompatActivity {
@@ -51,8 +49,8 @@ public class JCDemoActivity extends AppCompatActivity {
 
                     if (parameters.length() > 0) {
                         long start = System.currentTimeMillis();
-                        JustCall[] justCalls = JSON.parseObject(parameters.getString(0), JustCall[].class);
-                        for (JustCall call: justCalls) {
+                        String[] calls = JCDemo.splitBy(parameters.getString(0), parameters.getInteger(1), '&');
+                        for (String call: calls) {
                             jsdemo.call(call);
                         }
                         long end = System.currentTimeMillis();
