@@ -121,6 +121,7 @@ public class JustContext extends JustV8Object {
 
     @Override
     public void clean() {
+        mShapeList.clear();
         mObject.release();
     }
 

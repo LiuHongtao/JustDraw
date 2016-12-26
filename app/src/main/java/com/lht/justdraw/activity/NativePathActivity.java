@@ -3,6 +3,7 @@ package com.lht.justdraw.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
 import com.lht.justdraw.R;
@@ -34,10 +35,14 @@ public class NativePathActivity extends AppCompatActivity {
 
         mTvMsg = (TextView)findViewById(R.id.tv_msg);
 
-        thread.start();
+        draw(null);
     }
 
-    private Thread thread = new Thread() {
+    public void draw(View v) {
+        new Thread(runnable).start();
+    }
+
+    private Runnable runnable = new Runnable() {
         @Override
         public void run() {
             mView.setCount(mCount);

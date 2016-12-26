@@ -3,8 +3,8 @@ package com.lht.justdraw.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.eclipsesource.v8.JavaVoidCallback;
@@ -24,6 +24,9 @@ public class JCDemoActivity extends AppCompatActivity {
 
     private final static String LOG_TAG = "JCDemoLog";
 
+    long time = 0;
+
+    TextView mTvMsg;
     JustView justView;
 
     String js;
@@ -31,13 +34,23 @@ public class JCDemoActivity extends AppCompatActivity {
     JCDemoString jsdemoString = new JCDemoString();
     JCDemoJson jsdemoJson = new JCDemoJson();
 
+    int mCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(R.string.title_jc);
         setContentView(R.layout.activity_jcdemo);
 
+        mCount = getIntent().getIntExtra("count", 1000);
+
+        mTvMsg = (TextView) findViewById(R.id.tv_msg);
         justView = (JustView)findViewById(R.id.justview);
+
         js = FileUtil.getFromAssets(this, "jcdemoString.js");
+        js = js.replace("$count$", mCount + "");
+
+        draw(null);
     }
 
     public void draw(View v) {
@@ -47,6 +60,7 @@ public class JCDemoActivity extends AppCompatActivity {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
+            long start = System.currentTimeMillis();
 
             V8 runtime = V8.createV8Runtime();
             runtime.registerJavaMethod(new JavaVoidCallback() {
@@ -62,6 +76,8 @@ public class JCDemoActivity extends AppCompatActivity {
             runtime.add("screenHeight", JustConfig.screenHeight - JustConfig.navbarheight - JustConfig.statusbarheight);
             runtime.executeScript(js);
 
+            long end = System.currentTimeMillis();
+            time = end - start;
             handler.sendEmptyMessage(0);
         }
     };
@@ -71,44 +87,40 @@ public class JCDemoActivity extends AppCompatActivity {
         @Override
         public void handleMessage(android.os.Message msg) {
             justView.invalidate();
+
+            mTvMsg.setText(
+                    String.format(
+                            getResources().getString(R.string.format_time),
+                            time + ""));
         }
     };
 
     private void jcdemo(V8Array parameters) {
-        long start = System.currentTimeMillis();
         V8Array calls = parameters.getArray(0);
         int length = calls.length();
         for (int i = 0; i < length; i++) {
             jsdemo.call(calls.getObject(i));
         }
-        long end = System.currentTimeMillis();
-        Log.d(LOG_TAG, "V8Object:" + Long.toString(end - start));
         justView.draw(jsdemo.getShapeList());
         jsdemo.clearShapeList();
     }
 
     private void jcdemoString(V8Array parameters) {
-        long start = System.currentTimeMillis();
         String[] calls = JCDemoString.splitBy(parameters.getString(0), parameters.getInteger(1), '&');
         parameters.release();
         for (String call: calls) {
             jsdemoString.call(call);
         }
-        long end = System.currentTimeMillis();
-        Log.d(LOG_TAG, "String:" + Long.toString(end - start));
         justView.draw(jsdemoString.getShapeList());
         jsdemoString.clearShapeList();
     }
 
     private void jcdemoJson(V8Array parameters) {
-        long start = System.currentTimeMillis();
         JustCall[] calls = JSON.parseObject(parameters.getString(0), JustCall[].class);
         parameters.release();
         for (JustCall call: calls) {
             jsdemoJson.call(call);
         }
-        long end = System.currentTimeMillis();
-        Log.d(LOG_TAG, "JSON:" + Long.toString(end - start));
         justView.draw(jsdemoJson.getShapeList());
         jsdemoJson.clearShapeList();
     }

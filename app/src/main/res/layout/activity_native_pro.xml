@@ -13,4 +13,7 @@
     <TextView
         style="@style/MsgTextStyle"
         android:id="@+id/tv_msg"/>
+
+    <Button
+        style="@style/DrawButtonStyle"/>
 </FrameLayout>

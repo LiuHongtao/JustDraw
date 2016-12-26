@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     public void toJC(View view) {
         Intent intent = new Intent();
+        intent.putExtra("count", mCount);
         intent.setClass(this, JCDemoActivity.class);
         startActivity(intent);
     }

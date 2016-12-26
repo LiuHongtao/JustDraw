@@ -49,7 +49,7 @@ function random(num){
 }
 
 ctx = new JustCanvas();
-for (var i = 0; i < 10000; i++) {
+for (var i = 0; i < $count$; i++) {
     var x = random(screenWidth);
     var y = random(screenHeight);
 

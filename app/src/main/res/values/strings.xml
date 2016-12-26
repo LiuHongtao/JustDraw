@@ -12,5 +12,7 @@
     <string name="title_v8">V8 &amp; Canvas</string>
     <string name="title_jc">JustCanvas</string>
 
+    <string name="btn_draw">Draw</string>
+
     <string name="format_time">%s ms</string>
 </resources>
