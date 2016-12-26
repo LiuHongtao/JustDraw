@@ -86,7 +86,7 @@ public class JCDemo {
     }
 
     private void stroke() {
-        mShapeList.add(new DrawPath(mPath, mPaintStroke.clonePaint()));
+        mShapeList.add(new DrawPath(mPath, new CloneablePaint(mPaintStroke)));
     }
 
     private void moveTo(V8Array parameter) {

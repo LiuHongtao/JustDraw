@@ -90,7 +90,7 @@ public class JCDemoString {
     }
 
     private void stroke() {
-        mShapeList.add(new DrawPath(mPath, mPaintStroke.clonePaint()));
+        mShapeList.add(new DrawPath(mPath, new CloneablePaint(mPaintStroke)));
     }
 
     private void moveTo(String[] parameter) {
@@ -144,15 +144,15 @@ public class JCDemoString {
     }
 
     private int getInt(Object param) {
-        return Integer.valueOf(param.toString());
+        return Integer.parseInt(param.toString());
     }
 
     private float getFloat(Object param) {
-        return Float.valueOf(param.toString());
+        return Float.parseFloat(param.toString());
     }
 
     private boolean getBoolean(Object param) {
-        return Boolean.valueOf(param.toString());
+        return Boolean.parseBoolean(param.toString());
     }
 
     public static String[] splitBy(String content, int size, char symbol) {
