@@ -30,5 +30,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     compile 'com.eclipsesource.j2v8:j2v8:4.6.0@aar'
+    compile 'com.alibaba:fastjson:1.1.55.android'
     compile 'io.reactivex:rxandroid:1.2.1'
 }

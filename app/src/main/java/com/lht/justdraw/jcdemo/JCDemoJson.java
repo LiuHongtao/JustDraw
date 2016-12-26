@@ -5,8 +5,6 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.util.Log;
 
-import com.eclipsesource.v8.V8Array;
-import com.eclipsesource.v8.V8Object;
 import com.lht.justcanvas.common.CloneablePaint;
 import com.lht.justcanvas.draw.AbstractDraw;
 import com.lht.justcanvas.draw.shape.DrawPath;
@@ -17,7 +15,7 @@ import java.util.ArrayList;
  * Created by lht on 16/12/23.
  */
 
-public class JCDemo {
+public class JCDemoJson {
 
     private final static String LOG_TAG = "JCDemoLog";
 
@@ -37,16 +35,15 @@ public class JCDemo {
         mShapeList.clear();
     }
 
-    public JCDemo() {
+    public JCDemoJson() {
         mPaintStroke.setStyle(Paint.Style.STROKE);
     }
 
-    public void call(V8Object call) {
+    public void call(JustCall call) {
 
-        V8Array parameter = call.getArray("parameter");
-        switch (call.getString("name")) {
+        switch (call.getName()) {
             case "log":
-                log(parameter);
+                log(call.getParameter());
                 break;
             case "beginPath":
                 beginPath();
@@ -58,22 +55,22 @@ public class JCDemo {
                 stroke();
                 break;
             case "moveTo":
-                moveTo(parameter);
+                moveTo(call.getParameter());
                 break;
             case "lineTo":
-                lineTo(parameter);
+                lineTo(call.getParameter());
                 break;
             case "arc":
-                arc(parameter);
+                arc(call.getParameter());
                 break;
             case "rect":
-                rect(parameter);
+                rect(call.getParameter());
                 break;
         }
     }
 
-    private void log(V8Array parameter) {
-        Log.d(LOG_TAG, parameter.getString(0));
+    private void log(Object[] parameter) {
+        Log.d(LOG_TAG, parameter[0].toString());
     }
 
     private void beginPath() {
@@ -89,8 +86,8 @@ public class JCDemo {
         mShapeList.add(new DrawPath(mPath, mPaintStroke.clonePaint()));
     }
 
-    private void moveTo(V8Array parameter) {
-        moveTo(getFloat(parameter.getDouble(0)), getFloat(parameter.getDouble(1)));
+    private void moveTo(Object[] parameter) {
+        moveTo(getFloat(parameter[0]), getFloat(parameter[1]));
     }
 
     private void moveTo(float x, float y) {
@@ -100,8 +97,8 @@ public class JCDemo {
         mPath.moveTo(mStartX, mStartY);
     }
 
-    private void lineTo(V8Array parameter) {
-        lineTo(getFloat(parameter.getDouble(0)), getFloat(parameter.getDouble(1)));
+    private void lineTo(Object[] parameter) {
+        lineTo(getFloat(parameter[0]), getFloat(parameter[1]));
     }
 
     private void lineTo(float x, float y) {
@@ -113,11 +110,11 @@ public class JCDemo {
         }
     }
 
-    private void arc(V8Array parameter) {
-        float x = getFloat(parameter.getDouble(0)), y = getFloat(parameter.getDouble(1)),
-                r = getFloat(parameter.getDouble(2)), sAngle = getFloat(parameter.getDouble(3)),
-                eAngle = getFloat(parameter.getDouble(4));
-        boolean counterclockwise = parameter.getBoolean(5);
+    private void arc(Object[] parameter) {
+        float x = getFloat(parameter[0]), y = getFloat(parameter[1]),
+                r = getFloat(parameter[2]), sAngle = getFloat(parameter[3]),
+                eAngle = getFloat(parameter[4]);
+        boolean counterclockwise = getBoolean(parameter[5]);
 
         RectF rectF = new RectF(x - r, y - r, x + r, y + r);
 
@@ -133,13 +130,21 @@ public class JCDemo {
         mPath.addArc(rectF, sAngle, eAngle - sAngle);
     }
 
-    private void rect(V8Array parameter) {
-        float x = getFloat(parameter.getDouble(0)), y = getFloat(parameter.getDouble(1)),
-                width = getFloat(parameter.getDouble(2)), height = getFloat(parameter.getDouble(3));
+    private void rect(Object[] parameter) {
+        float x = getFloat(parameter[0]), y = getFloat(parameter[1]),
+                width = getFloat(parameter[2]), height = getFloat(parameter[3]);
         mPath.addRect(x, y, x + width, y + height, Path.Direction.CW);
     }
 
-    private float getFloat(double param) {
-        return (float)param;
+    private int getInt(Object param) {
+        return (int)param;
+    }
+
+    private float getFloat(Object param) {
+        return ((int)param) * 1.0f;
+    }
+
+    private boolean getBoolean(Object param) {
+        return (boolean)param;
     }
 }
