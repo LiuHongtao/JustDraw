@@ -62,7 +62,19 @@ View的`onDraw(Canvas canvas)`方法中循环执行Path绘制，单次绘制如�
 
 ### V8 & Canvas
 
-通过[V8](https://developers.google.com/v8/)和[J2V8](https://github.com/eclipsesource/J2V8)运行JS代码，并调用Native的Canvas进行绘制。
+通过[V8](https://developers.google.com/v8/)和[J2V8](https://github.com/eclipsesource/J2V8)运行JS代码，并调用Native的Canvas进行绘制。JS绘制代码同上。
+
+### Just Canvas
+
+本部分是对V8&Canvas的优化，计划开发成轮子。为测试性能，目前仅开发一个Demo。JS绘制代码同上。
+
+V8 & Canvas方案中每执行一个JS中的绘制方法，则通过JNI调用一次本地Canvas方法，而跨语言调用对性能有影响。本方案中通过格式化JS的Java调用，通过调用一次Java方法，传递需要执行的方法和参数组成的字符串，在Java端解析字符串并相应调用，以此减少JNI调用次数。自测较V8 & Canvas方案执行速度提升50%。
+
+Java端解析也有数种方案，Demo中提供了不同的方法供测试。
+
+* jcdemo：JS传回整个一个对象数组，对象内容为方法（name）和参数（parameter），每一个变量即是一个V8Object，但不断的获取V8Object是较为耗时的操作，此处待研究
+* jcdemoString：自定义的字符串格式，一个字符串传递所有的方法调用，并自行解析（参考了网上资料，没有使用String.split，因较为耗时）
+* jcdemoJson：JS传回jcdemo对象的JSON字符串，解决了不断获取V8Object的问题，但JSON解析较为耗时（2s解析7w个方法调用，在JSON看来不慢，但在绘制看来还需提高）
 
 ## Native绘制性能
 
@@ -76,8 +88,7 @@ View的`onDraw(Canvas canvas)`方法中循环执行Path绘制，单次绘制如�
 
 ## V8 & Canvas API
 
-通过JS引擎运行JS代码，调用本地Canvas方法实现绘制。每执行一个JS中的绘制方法，则通过JNI调用一次本地Canvas方法，而跨语言调用对性能有影响，因此该部分仍待优化。例如：可以在JS中将执行方法保存，仅在执行完后调用一次。
-
+通过JS引擎运行JS代码，调用本地Canvas方法实现绘制。
 目前仅实现部分JS端Canvas接口，实现描述如下：
 
 * 接口参数类型、顺序和数量均以JavaScript为准
