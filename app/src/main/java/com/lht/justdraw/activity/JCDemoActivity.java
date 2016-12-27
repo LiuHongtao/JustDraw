@@ -14,7 +14,7 @@ import com.eclipsesource.v8.V8Object;
 import com.lht.justcanvas.JustConfig;
 import com.lht.justcanvas.JustView;
 import com.lht.justdraw.R;
-import com.lht.justdraw.jcdemo.JCDemo;
+import com.lht.justdraw.jcdemo.JCDemoV8Object;
 import com.lht.justdraw.jcdemo.JCDemoJson;
 import com.lht.justdraw.jcdemo.JCDemoString;
 import com.lht.justdraw.jcdemo.JustCall;
@@ -30,7 +30,7 @@ public class JCDemoActivity extends AppCompatActivity {
     JustView justView;
 
     String js;
-    JCDemo jsdemo = new JCDemo();
+    JCDemoV8Object jsdemo = new JCDemoV8Object();
     JCDemoString jsdemoString = new JCDemoString();
     JCDemoJson jsdemoJson = new JCDemoJson();
 
@@ -95,7 +95,7 @@ public class JCDemoActivity extends AppCompatActivity {
         }
     };
 
-    private void jcdemo(V8Array parameters) {
+    private void jcdemoV8Object(V8Array parameters) {
         V8Array calls = parameters.getArray(0);
         int length = calls.length();
         for (int i = 0; i < length; i++) {

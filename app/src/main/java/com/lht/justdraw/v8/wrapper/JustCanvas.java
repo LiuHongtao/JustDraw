@@ -1,12 +1,12 @@
-package com.lht.justcanvas.wrapper;
+package com.lht.justdraw.v8.wrapper;
 
 import android.content.Context;
 
 import com.eclipsesource.v8.V8;
 import com.eclipsesource.v8.V8Object;
-import com.lht.justcanvas.JustConfig;
-import com.lht.justcanvas.JustV8Object;
-import com.lht.justcanvas.JustView;
+import com.lht.justdraw.v8.JustConfig;
+import com.lht.justdraw.v8.JustV8Object;
+import com.lht.justdraw.v8.JustView;
 
 /**
  * Created by lht on 16/9/9.

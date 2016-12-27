@@ -21,7 +21,8 @@ public class JCDemoString {
 
     private boolean bNewStart = true;
 
-    private CloneablePaint mPaintStroke = new CloneablePaint();
+    private CloneablePaint mPaintFill = new CloneablePaint(),
+            mPaintStroke = new CloneablePaint();
 
     private float mStartX = 0, mStartY = 0;
     private Path mPath = new Path();
@@ -36,7 +37,10 @@ public class JCDemoString {
     }
 
     public JCDemoString() {
+        mPaintFill.setStyle(Paint.Style.FILL);
         mPaintStroke.setStyle(Paint.Style.STROKE);
+        mPaintFill.setFlags(Paint.ANTI_ALIAS_FLAG);
+        mPaintStroke.setFlags(Paint.ANTI_ALIAS_FLAG);
     }
 
     public void call(String call) {

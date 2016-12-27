@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * Created by lht on 16/12/23.
  */
 
-public class JCDemo {
+public class JCDemoV8Object {
 
     private final static String LOG_TAG = "JCDemoLog";
 
@@ -37,7 +37,7 @@ public class JCDemo {
         mShapeList.clear();
     }
 
-    public JCDemo() {
+    public JCDemoV8Object() {
         mPaintStroke.setStyle(Paint.Style.STROKE);
     }
 

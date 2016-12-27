@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.eclipsesource.v8.V8;
-import com.lht.justcanvas.JustJsCore;
-import com.lht.justcanvas.JustViewGroup;
-import com.lht.justcanvas.wrapper.JustWindow;
+import com.lht.justdraw.v8.JustJsCore;
+import com.lht.justdraw.v8.JustViewGroup;
+import com.lht.justdraw.v8.wrapper.JustWindow;
 import com.lht.justdraw.R;
 import com.lht.justdraw.util.FileUtil;
 

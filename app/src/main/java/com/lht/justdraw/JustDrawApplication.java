@@ -15,6 +15,7 @@ public class JustDrawApplication extends Application {
         super.onCreate();
 
         ScreenUtil.GetInfo(this);
+        com.lht.justdraw.v8.JustConfig.init(this);
         JustConfig.init(this);
     }
 }

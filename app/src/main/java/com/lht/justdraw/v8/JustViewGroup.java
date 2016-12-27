@@ -1,4 +1,4 @@
-package com.lht.justcanvas;
+package com.lht.justdraw.v8;
 
 import android.content.Context;
 import android.util.AttributeSet;

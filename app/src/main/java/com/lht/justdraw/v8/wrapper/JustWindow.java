@@ -1,13 +1,13 @@
-package com.lht.justcanvas.wrapper;
+package com.lht.justdraw.v8.wrapper;
 
 import android.graphics.Paint;
 import android.graphics.Rect;
 
 import com.eclipsesource.v8.V8;
 import com.eclipsesource.v8.V8Object;
-import com.lht.justcanvas.JustConfig;
-import com.lht.justcanvas.JustV8Object;
-import com.lht.justcanvas.JustViewGroup;
+import com.lht.justdraw.v8.JustConfig;
+import com.lht.justdraw.v8.JustV8Object;
+import com.lht.justdraw.v8.JustViewGroup;
 
 import java.util.ArrayList;
 
