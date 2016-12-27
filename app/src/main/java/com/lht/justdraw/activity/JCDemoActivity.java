@@ -39,7 +39,7 @@ public class JCDemoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle(R.string.title_jc);
+        setTitle(R.string.title_jc_demo);
         setContentView(R.layout.activity_jcdemo);
 
         mCount = getIntent().getIntExtra("count", 1000);

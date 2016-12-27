@@ -10,6 +10,7 @@
     <string name="title_native_pro">Native Canvas Pro</string>
     <string name="title_web">Web</string>
     <string name="title_v8">V8 &amp; Canvas</string>
+    <string name="title_jc_demo">JustCanvasDemo</string>
     <string name="title_jc">JustCanvas</string>
 
     <string name="btn_draw">Draw</string>

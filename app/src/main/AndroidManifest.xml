@@ -23,7 +23,8 @@
         <activity android:name=".activity.NativeProActivity" />
         <activity android:name=".activity.WebActivity" />
         <activity android:name=".activity.V8Activity" />
-        <activity android:name=".activity.JCDemoActivity"></activity>
+        <activity android:name=".activity.JCDemoActivity" />
+        <activity android:name=".activity.JustCanvasActivity"></activity>
     </application>
 
 </manifest>
