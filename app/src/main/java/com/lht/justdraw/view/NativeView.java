@@ -43,6 +43,7 @@ public class NativeView extends View {
 
         mPaint = new Paint();
         mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
     }
 
     public void setCount(int count) {

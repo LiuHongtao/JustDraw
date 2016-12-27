@@ -12,7 +12,7 @@ import com.eclipsesource.v8.V8;
 import com.eclipsesource.v8.V8Array;
 import com.eclipsesource.v8.V8Object;
 import com.lht.justcanvas.JustConfig;
-import com.lht.justcanvas.JustView;
+import com.lht.justcanvas.view.JustView;
 import com.lht.justdraw.R;
 import com.lht.justdraw.jcdemo.JCDemoV8Object;
 import com.lht.justdraw.jcdemo.JCDemoJson;

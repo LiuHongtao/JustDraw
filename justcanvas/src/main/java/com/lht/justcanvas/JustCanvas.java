@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.eclipsesource.v8.V8;
 import com.lht.justcanvas.common.CloneablePaint;
+import com.lht.justcanvas.common.JustV8Object;
 import com.lht.justcanvas.draw.AbstractDraw;
 import com.lht.justcanvas.draw.shape.DrawPath;
 import com.lht.justcanvas.draw.shape.DrawText;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  * Created by lht on 16/12/27.
  */
 
-public class JustCanvas extends JustV8Object{
+public class JustCanvas extends JustV8Object {
 
     private final static String LOG_TAG = "JustCanvas";
 

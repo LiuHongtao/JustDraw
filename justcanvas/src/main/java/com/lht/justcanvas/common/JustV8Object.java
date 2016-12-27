@@ -1,4 +1,4 @@
-package com.lht.justcanvas;
+package com.lht.justcanvas.common;
 
 import com.eclipsesource.v8.V8;
 import com.eclipsesource.v8.V8Object;

@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.eclipsesource.v8.V8;
 import com.lht.justcanvas.JustCanvas;
 import com.lht.justcanvas.JustCore;
-import com.lht.justcanvas.JustView;
+import com.lht.justcanvas.view.JustView;
 import com.lht.justdraw.R;
 import com.lht.justdraw.util.FileUtil;
 

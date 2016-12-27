@@ -6,6 +6,7 @@ import com.eclipsesource.v8.JavaVoidCallback;
 import com.eclipsesource.v8.V8;
 import com.eclipsesource.v8.V8Array;
 import com.eclipsesource.v8.V8Object;
+import com.lht.justcanvas.common.JustV8Object;
 
 /**
  * Created by lht on 16/9/20.

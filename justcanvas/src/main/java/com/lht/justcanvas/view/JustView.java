@@ -1,4 +1,4 @@
-package com.lht.justcanvas;
+package com.lht.justcanvas.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.lht.justcanvas.JustConfig;
 import com.lht.justcanvas.draw.AbstractDraw;
 
 import java.io.Serializable;
