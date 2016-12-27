@@ -9,7 +9,7 @@ import com.lht.justcanvas.draw.AbstractDraw;
  */
 public class DrawScale extends AbstractDraw {
 
-    float scaleWidth, scaleHeight;
+    private float scaleWidth, scaleHeight;
 
     public DrawScale(Number scaleWidth, Number scaleHeight) {
         this.scaleWidth = scaleWidth.floatValue();

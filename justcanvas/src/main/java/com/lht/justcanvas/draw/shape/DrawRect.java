@@ -10,7 +10,7 @@ import com.lht.justcanvas.draw.AbstractDraw;
  */
 public class DrawRect extends AbstractDraw {
 
-    float left, top, right, bottom;
+    private float left, top, right, bottom;
 
     public DrawRect(Number x, Number y, Number width, Number height, Paint paint) {
         this.left = x.floatValue();

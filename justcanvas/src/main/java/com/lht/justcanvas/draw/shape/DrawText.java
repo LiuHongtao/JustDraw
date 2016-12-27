@@ -10,13 +10,13 @@ import com.lht.justcanvas.draw.AbstractDraw;
  */
 public class DrawText extends AbstractDraw {
 
-    String text;
-    float x, y;
+    private String text;
+    private float x, y;
 
-    public DrawText(String text, Number x, Number y, Paint paint) {
+    public DrawText(String text, float x, float y, Paint paint) {
         this.text = text;
-        this.x = x.floatValue();
-        this.y = y.floatValue();
+        this.x = x;
+        this.y = y;
         this.mPaint = paint;
     }
 

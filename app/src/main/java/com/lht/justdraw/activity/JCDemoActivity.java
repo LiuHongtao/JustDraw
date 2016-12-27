@@ -16,13 +16,10 @@ import com.lht.justcanvas.JustView;
 import com.lht.justdraw.R;
 import com.lht.justdraw.jcdemo.JCDemoV8Object;
 import com.lht.justdraw.jcdemo.JCDemoJson;
-import com.lht.justdraw.jcdemo.JCDemoString;
 import com.lht.justdraw.jcdemo.JustCall;
 import com.lht.justdraw.util.FileUtil;
 
 public class JCDemoActivity extends AppCompatActivity {
-
-    private final static String LOG_TAG = "JCDemoLog";
 
     long time = 0;
 
@@ -30,8 +27,7 @@ public class JCDemoActivity extends AppCompatActivity {
     JustView justView;
 
     String js;
-    JCDemoV8Object jsdemo = new JCDemoV8Object();
-    JCDemoString jsdemoString = new JCDemoString();
+    JCDemoV8Object jsdemoV8Object = new JCDemoV8Object();
     JCDemoJson jsdemoJson = new JCDemoJson();
 
     int mCount;
@@ -47,7 +43,7 @@ public class JCDemoActivity extends AppCompatActivity {
         mTvMsg = (TextView) findViewById(R.id.tv_msg);
         justView = (JustView)findViewById(R.id.justview);
 
-        js = FileUtil.getFromAssets(this, "jcdemoString.js");
+        js = FileUtil.getFromAssets(this, "jcdemoV8Object.js");
         js = js.replace("$count$", mCount + "");
 
         draw(null);
@@ -67,7 +63,7 @@ public class JCDemoActivity extends AppCompatActivity {
                 public void invoke(final V8Object receiver, final V8Array parameters) {
 
                     if (parameters.length() > 0) {
-                        jcdemoString(parameters);
+                        jcdemoV8Object(parameters);
                     }
 
                 }
@@ -99,20 +95,10 @@ public class JCDemoActivity extends AppCompatActivity {
         V8Array calls = parameters.getArray(0);
         int length = calls.length();
         for (int i = 0; i < length; i++) {
-            jsdemo.call(calls.getObject(i));
+            jsdemoV8Object.call(calls.getObject(i));
         }
-        justView.draw(jsdemo.getShapeList());
-        jsdemo.clearShapeList();
-    }
-
-    private void jcdemoString(V8Array parameters) {
-        String[] calls = JCDemoString.splitBy(parameters.getString(0), parameters.getInteger(1), '&');
-        parameters.release();
-        for (String call: calls) {
-            jsdemoString.call(call);
-        }
-        justView.draw(jsdemoString.getShapeList());
-        jsdemoString.clearShapeList();
+        justView.draw(jsdemoV8Object.getShapeList());
+        jsdemoV8Object.clearShapeList();
     }
 
     private void jcdemoJson(V8Array parameters) {

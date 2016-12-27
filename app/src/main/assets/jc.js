@@ -100,7 +100,5 @@ for (var i = 0; i < $count$; i++) {
     ctx.arc(x, y, 2, 0, 360, false);
     ctx.stroke();
 
-//    speedometer.update();
 }
-//ctx.fillText(speedometer.fps.toFixed(1), 100, 100);
 ctx.flush();

@@ -39,6 +39,7 @@ public class JCDemoV8Object {
 
     public JCDemoV8Object() {
         mPaintStroke.setStyle(Paint.Style.STROKE);
+        mPaintStroke.setFlags(Paint.ANTI_ALIAS_FLAG);
     }
 
     public void call(V8Object call) {

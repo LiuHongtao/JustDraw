@@ -9,7 +9,7 @@ import com.lht.justcanvas.draw.AbstractDraw;
  */
 public class DrawRotate extends AbstractDraw {
 
-    float angle;
+    private float angle;
 
     public DrawRotate(Number angle) {
         this.angle = angle.floatValue();

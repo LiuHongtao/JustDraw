@@ -11,7 +11,7 @@ import com.lht.justcanvas.draw.AbstractDraw;
  */
 public class DrawPath extends AbstractDraw {
 
-    Path path;
+    private Path path;
 
     public DrawPath(Path path, Paint paint) {
         this.path = path;

@@ -1,26 +1,27 @@
-package com.lht.justdraw.jcdemo;
+package com.lht.justcanvas;
 
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.util.Log;
 
+import com.eclipsesource.v8.V8;
 import com.lht.justcanvas.common.CloneablePaint;
 import com.lht.justcanvas.draw.AbstractDraw;
 import com.lht.justcanvas.draw.shape.DrawPath;
+import com.lht.justcanvas.draw.shape.DrawText;
 
 import java.util.ArrayList;
 
 /**
- * Created by lht on 16/12/23.
+ * Created by lht on 16/12/27.
  */
 
-public class JCDemoString {
+public class JustCanvas extends JustV8Object{
 
-    private final static String LOG_TAG = "JCDemoLog";
+    private final static String LOG_TAG = "JustCanvas";
 
     private boolean bNewStart = true;
-
     private CloneablePaint mPaintFill = new CloneablePaint(),
             mPaintStroke = new CloneablePaint();
 
@@ -32,18 +33,28 @@ public class JCDemoString {
         return mShapeList;
     }
 
-    public void clearShapeList() {
-        mShapeList.clear();
-    }
+    public JustCanvas(V8 v8Runtime) {
+        super(v8Runtime);
 
-    public JCDemoString() {
         mPaintFill.setStyle(Paint.Style.FILL);
         mPaintStroke.setStyle(Paint.Style.STROKE);
         mPaintFill.setFlags(Paint.ANTI_ALIAS_FLAG);
         mPaintStroke.setFlags(Paint.ANTI_ALIAS_FLAG);
     }
 
-    public void call(String call) {
+    @Override
+    protected void initV8Object() {
+        mObject.registerJavaMethod(this, "call", "call", new Class[]{String.class, Integer.class});
+    }
+
+    public void call(String call, Integer times) {
+        String[] calls = splitBy(call, times, '&');
+        for (String item: calls) {
+            call(item);
+        }
+    }
+
+    private void call(String call) {
         int index = call.indexOf(']');
         int length = call.length();
         String name = call.substring(1, index);
@@ -76,6 +87,9 @@ public class JCDemoString {
                 break;
             case "rect":
                 rect(parameter);
+                break;
+            case "fillText":
+                fillText(parameter);
                 break;
         }
     }
@@ -147,6 +161,12 @@ public class JCDemoString {
         mPath.addRect(x, y, x + width, y + height, Path.Direction.CW);
     }
 
+    private void fillText(String[] parameter) {
+        mShapeList.add(new DrawText(parameter[0],
+                getFloat(parameter[1]), getFloat(parameter[2]),
+                new CloneablePaint(mPaintFill)));
+    }
+
     private int getInt(Object param) {
         return Integer.parseInt(param.toString());
     }
@@ -159,7 +179,7 @@ public class JCDemoString {
         return Boolean.parseBoolean(param.toString());
     }
 
-    public static String[] splitBy(String content, int size, char symbol) {
+    private static String[] splitBy(String content, int size, char symbol) {
         String[] result = new String[size];
         int index = 0, length = content.length(), start, end;
         int[] posForSymbol = new int[size];

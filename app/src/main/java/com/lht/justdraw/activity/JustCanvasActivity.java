@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.eclipsesource.v8.V8;
-import com.lht.justcanvas.JustContext;
+import com.lht.justcanvas.JustCanvas;
 import com.lht.justcanvas.JustCore;
 import com.lht.justcanvas.JustView;
 import com.lht.justdraw.R;
@@ -25,6 +25,7 @@ public class JustCanvasActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(R.string.title_jc);
         setContentView(R.layout.activity_just_canvas);
 
         mTvMsg = (TextView) findViewById(R.id.tv_msg);
@@ -46,7 +47,7 @@ public class JustCanvasActivity extends AppCompatActivity {
             long start = System.currentTimeMillis();
 
             V8 v8Runtime = JustCore.getRuntime();
-            JustContext just = new JustContext(v8Runtime);
+            JustCanvas just = new JustCanvas(v8Runtime);
             v8Runtime.add("just", just.getObject());
 
             JustCore.run(js);

@@ -10,7 +10,7 @@ import com.lht.justcanvas.draw.AbstractDraw;
  */
 public class DrawTransform extends AbstractDraw {
 
-    float a, b, c, d, dx, dy;
+    private float a, b, c, d, dx, dy;
 
     public DrawTransform(Number a, Number b, Number c, Number d, Number dx, Number dy) {
         this.a = a.floatValue();

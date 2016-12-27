@@ -9,7 +9,7 @@ import com.lht.justcanvas.draw.AbstractDraw;
  */
 public class DrawTranslate extends AbstractDraw {
 
-    float x, y;
+    private float x, y;
 
     public DrawTranslate(Number x, Number y) {
         this.x = x.floatValue();
