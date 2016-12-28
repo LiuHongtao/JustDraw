@@ -44,20 +44,20 @@ public class JustCanvasActivity extends AppCompatActivity {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
+            mJustView.clear();
+
             long start = System.currentTimeMillis();
 
             V8 v8Runtime = JustCore.getRuntime();
-            JustCanvas just = new JustCanvas(v8Runtime);
+            JustCanvas just = new JustCanvas(v8Runtime, mJustView, handler);
             v8Runtime.add("just", just.getObject());
 
             JustCore.run(js);
-            mJustView.draw(just.getShapeList());
 
             long end = System.currentTimeMillis();
             time = end - start;
 
             JustCore.clean(just);
-            handler.sendEmptyMessage(0);
         }
     };
 

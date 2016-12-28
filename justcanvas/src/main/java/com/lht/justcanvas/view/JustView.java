@@ -18,7 +18,6 @@ import java.util.ArrayList;
  */
 public class JustView extends View implements Serializable {
 
-    Context mContext;
     float mCanvasWidth = JustConfig.screenWidth;
     float mCanvasHeight = JustConfig.screenHeight - JustConfig.navbarheight - JustConfig.statusbarheight;
     float mCanvasX = 0, mCanvasY = 0;
@@ -28,16 +27,35 @@ public class JustView extends View implements Serializable {
 
     public JustView(Context context) {
         super(context);
-        mContext = context;
     }
 
     public JustView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mContext = context;
+    }
+
+    public JustView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+
+        if (changed) {
+            mCanvasWidth = right - left;
+            mCanvasHeight = bottom - top;
+            clear();
+        }
+    }
+
+    public void clear() {
+        if (mBitmap != null) {
+            mBitmap.recycle();
+        }
+        mBitmap = Bitmap.createBitmap((int)mCanvasWidth, (int)mCanvasHeight, Bitmap.Config.ARGB_8888);
     }
 
     public void draw(ArrayList<AbstractDraw> abstractDrawList) {
-        mBitmap = Bitmap.createBitmap((int)mCanvasWidth, (int)mCanvasHeight, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas();
         canvas.setBitmap(mBitmap);
 
@@ -54,7 +72,6 @@ public class JustView extends View implements Serializable {
 
         if (bDrawFinished) {
             canvas.drawBitmap(mBitmap, 0, 0, new Paint());
-            mBitmap.recycle();
             bDrawFinished = false;
         }
     }

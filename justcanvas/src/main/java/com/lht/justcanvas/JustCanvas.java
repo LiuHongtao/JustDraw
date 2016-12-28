@@ -3,6 +3,7 @@ package com.lht.justcanvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
+import android.os.Handler;
 import android.util.Log;
 
 import com.eclipsesource.v8.V8;
@@ -11,6 +12,7 @@ import com.lht.justcanvas.common.JustV8Object;
 import com.lht.justcanvas.draw.AbstractDraw;
 import com.lht.justcanvas.draw.shape.DrawPath;
 import com.lht.justcanvas.draw.shape.DrawText;
+import com.lht.justcanvas.view.JustView;
 
 import java.util.ArrayList;
 
@@ -19,6 +21,9 @@ import java.util.ArrayList;
  */
 
 public class JustCanvas extends JustV8Object {
+
+    private JustView mJustView;
+    private Handler mHandler;
 
     private final static String LOG_TAG = "JustCanvas";
 
@@ -34,8 +39,11 @@ public class JustCanvas extends JustV8Object {
         return mShapeList;
     }
 
-    public JustCanvas(V8 v8Runtime) {
+    public JustCanvas(V8 v8Runtime, JustView justView, Handler handler) {
         super(v8Runtime);
+
+        this.mJustView = justView;
+        this.mHandler = handler;
 
         mPaintFill.setStyle(Paint.Style.FILL);
         mPaintStroke.setStyle(Paint.Style.STROKE);
@@ -53,6 +61,11 @@ public class JustCanvas extends JustV8Object {
         for (String item: calls) {
             call(item);
         }
+
+        mJustView.draw(mShapeList);
+        mShapeList.clear();
+
+        mHandler.sendEmptyMessage(0);
     }
 
     private void call(String call) {
