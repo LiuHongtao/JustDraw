@@ -64,24 +64,6 @@ JustCanvas = function () {
     }
 }
 
-var speedometer = {
-    start: 0,
-    count: 0,
-    fps: 0,
-    update: function() {
-      var now = Date.now();
-      var time = now - this.start;
-      this.count++;
-      if (this.start === 0) {
-        this.start = now;
-      } else if (time >= 1000) {
-        this.fps = this.count / (time / 1000);
-        this.start = now;
-        this.count = 0;
-      }
-    }
-};
-
 function random(num){
     return parseInt(Math.random()*num+1);
 }
