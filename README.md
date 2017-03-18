@@ -1,6 +1,6 @@
 # JustDraw
 
-Canvas绘制测试Demo，点击下方ICON下载Apk。
+Canvas绘制test测试Demo，点击下方ICON下载Apk。
 
 [![ICON](res/ic_launcher.png)](res/justdraw.apk)
 
