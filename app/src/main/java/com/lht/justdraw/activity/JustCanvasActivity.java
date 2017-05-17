@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.eclipsesource.v8.V8;
-import com.lht.justcanvas.JustCanvas;
+import com.lht.justcanvas.JustCanvasNative;
 import com.lht.justcanvas.JustCore;
 import com.lht.justcanvas.view.JustView;
 import com.lht.justdraw.R;
@@ -49,8 +49,8 @@ public class JustCanvasActivity extends AppCompatActivity {
             long start = System.currentTimeMillis();
 
             V8 v8Runtime = JustCore.getRuntime();
-            JustCanvas just = new JustCanvas(v8Runtime, mJustView, handler);
-            v8Runtime.add("just", just.getObject());
+            JustCanvasNative just = new JustCanvasNative(v8Runtime, mJustView, handler);
+            v8Runtime.add("JustCanvasNative", just.getObject());
 
             JustCore.run(js);
 

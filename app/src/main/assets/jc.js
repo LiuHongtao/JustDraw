@@ -13,7 +13,7 @@ JustCanvas = function () {
     }
 
     this.flush = function() {
-        just.call(this._functions, this._times);
+        JustCanvasNative.call(this._functions, this._times);
         this._functions = "";
         this._times = 0;
     };

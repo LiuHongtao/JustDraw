@@ -20,12 +20,12 @@ import java.util.ArrayList;
  * Created by lht on 16/12/27.
  */
 
-public class JustCanvas extends JustV8Object {
+public class JustCanvasNative extends JustV8Object {
 
     private JustView mJustView;
     private Handler mHandler;
 
-    private final static String LOG_TAG = "JustCanvas";
+    private final static String LOG_TAG = "JustCanvasNative";
 
     private boolean bNewStart = true;
     private CloneablePaint mPaintFill = new CloneablePaint(),
@@ -39,7 +39,7 @@ public class JustCanvas extends JustV8Object {
         return mShapeList;
     }
 
-    public JustCanvas(V8 v8Runtime, JustView justView, Handler handler) {
+    public JustCanvasNative(V8 v8Runtime, JustView justView, Handler handler) {
         super(v8Runtime);
 
         this.mJustView = justView;
@@ -53,13 +53,15 @@ public class JustCanvas extends JustV8Object {
 
     @Override
     protected void initV8Object() {
+        // Register call() into JS
         mObject.registerJavaMethod(this, "call", "call", new Class[]{String.class, Integer.class});
     }
 
+    // For JavaScript to call
     public void call(String call, Integer times) {
         String[] calls = splitBy(call, times, '&');
         for (String item: calls) {
-            call(item);
+            this.call(item);
         }
 
         mJustView.draw(mShapeList);

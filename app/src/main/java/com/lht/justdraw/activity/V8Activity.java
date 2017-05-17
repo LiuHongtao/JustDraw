@@ -14,6 +14,9 @@ import com.lht.justdraw.v8.wrapper.JustWindow;
 import com.lht.justdraw.R;
 import com.lht.justdraw.util.FileUtil;
 
+/**
+ * Run JavaScript code and draw shapes on native Canvas
+ */
 public class V8Activity extends AppCompatActivity {
 
     long time = 0;

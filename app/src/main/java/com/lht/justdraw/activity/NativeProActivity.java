@@ -10,6 +10,9 @@ import com.lht.justdraw.R;
 import com.lht.justdraw.view.NativeProView;
 import com.lht.justdraw.view.OnDrawFinishedListener;
 
+/**
+ * Draw shapes to Bitmap first, then put Bitmap to Canvas
+ */
 public class NativeProActivity extends AppCompatActivity {
 
     NativeProView mView;

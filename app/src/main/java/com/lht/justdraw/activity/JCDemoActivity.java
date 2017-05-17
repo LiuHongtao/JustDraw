@@ -19,6 +19,9 @@ import com.lht.justdraw.jcdemo.JCDemoJson;
 import com.lht.justdraw.jcdemo.JustCall;
 import com.lht.justdraw.util.FileUtil;
 
+/**
+ * Run JavaScript code and draw shapes on native Canvas, with patch callback
+ */
 public class JCDemoActivity extends AppCompatActivity {
 
     long time = 0;

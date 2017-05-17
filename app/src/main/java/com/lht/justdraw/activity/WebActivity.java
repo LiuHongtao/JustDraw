@@ -11,6 +11,9 @@ import android.widget.TextView;
 import com.lht.justdraw.R;
 import com.lht.justdraw.util.FileUtil;
 
+/**
+ * Draw shapes in html
+ */
 public class WebActivity extends AppCompatActivity {
 
     long time = 0;

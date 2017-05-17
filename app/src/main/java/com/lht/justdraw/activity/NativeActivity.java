@@ -10,6 +10,9 @@ import com.lht.justdraw.R;
 import com.lht.justdraw.view.NativeView;
 import com.lht.justdraw.view.OnDrawFinishedListener;
 
+/**
+ * Draw shapes directly without Path
+ */
 public class NativeActivity extends AppCompatActivity {
 
     NativeView mView;

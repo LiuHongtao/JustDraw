@@ -13,12 +13,13 @@ import com.lht.justcanvas.common.JustV8Object;
  */
 public class JustCore {
 
-    final static String LOG_TAG = "JustCanvas";
+    final static String LOG_TAG = "JustCanvasNative";
 
     static V8 sRuntime;
 
     public static V8 getRuntime() {
         sRuntime = V8.createV8Runtime();
+        // log() in JS
         sRuntime.registerJavaMethod(new JavaVoidCallback() {
             public void invoke(final V8Object receiver, final V8Array parameters) {
                 if (parameters.length() > 0) {
