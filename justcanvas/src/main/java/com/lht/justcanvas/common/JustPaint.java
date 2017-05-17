@@ -6,12 +6,12 @@ import android.graphics.Paint;
 /**
  * Created by lht on 16/9/7.
  */
-public class CloneablePaint extends Paint {
+public class JustPaint extends Paint {
 
-    public CloneablePaint() {
+    public JustPaint() {
     }
 
-    public CloneablePaint(CloneablePaint paint) {
+    public JustPaint(JustPaint paint) {
         super(paint);
     }
 

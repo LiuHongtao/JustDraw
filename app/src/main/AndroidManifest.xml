@@ -24,7 +24,8 @@
         <activity android:name=".activity.WebActivity" />
         <activity android:name=".activity.V8Activity" />
         <activity android:name=".activity.JCDemoActivity" />
-        <activity android:name=".activity.JustCanvasActivity"></activity>
+        <activity android:name=".activity.JustCanvasActivity" />
+        <activity android:name=".activity.JustAnimActivity"></activity>
     </application>
 
 </manifest>

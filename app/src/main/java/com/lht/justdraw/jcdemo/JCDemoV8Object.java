@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.eclipsesource.v8.V8Array;
 import com.eclipsesource.v8.V8Object;
-import com.lht.justcanvas.common.CloneablePaint;
+import com.lht.justcanvas.common.JustPaint;
 import com.lht.justcanvas.draw.AbstractDraw;
 import com.lht.justcanvas.draw.shape.DrawPath;
 
@@ -23,7 +23,7 @@ public class JCDemoV8Object {
 
     private boolean bNewStart = true;
 
-    private CloneablePaint mPaintStroke = new CloneablePaint();
+    private JustPaint mPaintStroke = new JustPaint();
 
     private float mStartX = 0, mStartY = 0;
     private Path mPath = new Path();
@@ -87,7 +87,7 @@ public class JCDemoV8Object {
     }
 
     private void stroke() {
-        mShapeList.add(new DrawPath(mPath, new CloneablePaint(mPaintStroke)));
+        mShapeList.add(new DrawPath(mPath, new JustPaint(mPaintStroke)));
     }
 
     private void moveTo(V8Array parameter) {

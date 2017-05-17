@@ -38,7 +38,7 @@ public class JCDemoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle(R.string.title_jc_demo);
+        setTitle(R.string.title_jc_test);
         setContentView(R.layout.activity_jcdemo);
 
         mCount = getIntent().getIntExtra("count", 1000);
@@ -59,6 +59,8 @@ public class JCDemoActivity extends AppCompatActivity {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
+            justView.clear();
+
             long start = System.currentTimeMillis();
 
             V8 runtime = V8.createV8Runtime();

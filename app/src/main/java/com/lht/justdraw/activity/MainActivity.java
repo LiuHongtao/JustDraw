@@ -92,4 +92,10 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         intent.setClass(this, JustCanvasActivity.class);
         startActivity(intent);
     }
+
+    public void toJCAnim(View view) {
+        Intent intent = new Intent();
+        intent.setClass(this, JustAnimActivity.class);
+        startActivity(intent);
+    }
 }

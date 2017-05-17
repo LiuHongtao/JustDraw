@@ -14,7 +14,6 @@ public abstract class JustV8Object {
     public JustV8Object(V8 v8Runtime) {
         mRuntime = v8Runtime;
         mObject = new V8Object(mRuntime);
-        initV8Object();
     }
 
     public V8Object getObject() {

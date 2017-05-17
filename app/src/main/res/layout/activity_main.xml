@@ -69,7 +69,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/title_jc_demo"
+        android:text="@string/title_jc_test"
         android:onClick="toJCDemo"/>
 
     <Button
@@ -77,4 +77,10 @@
         android:layout_height="wrap_content"
         android:text="@string/title_jc"
         android:onClick="toJC"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_jc_anim"
+        android:onClick="toJCAnim"/>
 </LinearLayout>

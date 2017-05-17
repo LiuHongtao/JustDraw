@@ -2,15 +2,18 @@ package com.lht.justcanvas;
 
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.os.Handler;
 import android.util.Log;
 
 import com.eclipsesource.v8.V8;
-import com.lht.justcanvas.common.CloneablePaint;
+import com.lht.justcanvas.common.JustPaint;
 import com.lht.justcanvas.common.JustV8Object;
 import com.lht.justcanvas.draw.AbstractDraw;
 import com.lht.justcanvas.draw.shape.DrawPath;
+import com.lht.justcanvas.draw.shape.DrawRect;
 import com.lht.justcanvas.draw.shape.DrawText;
 import com.lht.justcanvas.view.JustView;
 
@@ -22,14 +25,14 @@ import java.util.ArrayList;
 
 public class JustCanvasNative extends JustV8Object {
 
-    private JustView mJustView;
+    protected JustView mJustView;
     private Handler mHandler;
 
     private final static String LOG_TAG = "JustCanvasNative";
 
     private boolean bNewStart = true;
-    private CloneablePaint mPaintFill = new CloneablePaint(),
-            mPaintStroke = new CloneablePaint();
+    private JustPaint mPaintFill = new JustPaint(),
+            mPaintStroke = new JustPaint();
 
     private float mStartX = 0, mStartY = 0;
     private Path mPath = new Path();
@@ -45,6 +48,8 @@ public class JustCanvasNative extends JustV8Object {
         this.mJustView = justView;
         this.mHandler = handler;
 
+        this.initV8Object();
+
         mPaintFill.setStyle(Paint.Style.FILL);
         mPaintStroke.setStyle(Paint.Style.STROKE);
         mPaintFill.setFlags(Paint.ANTI_ALIAS_FLAG);
@@ -55,6 +60,8 @@ public class JustCanvasNative extends JustV8Object {
     protected void initV8Object() {
         // Register call() into JS
         mObject.registerJavaMethod(this, "call", "call", new Class[]{String.class, Integer.class});
+        mObject.add("width", mJustView.getCanvasWidth());
+        mObject.add("height", mJustView.getCanvasHeight());
     }
 
     // For JavaScript to call
@@ -89,6 +96,9 @@ public class JustCanvasNative extends JustV8Object {
             case "closePath":
                 closePath();
                 break;
+            case "fill":
+                fill();
+                break;
             case "stroke":
                 stroke();
                 break;
@@ -103,6 +113,9 @@ public class JustCanvasNative extends JustV8Object {
                 break;
             case "rect":
                 rect(parameter);
+                break;
+            case "clearRect":
+                clearRect(parameter);
                 break;
             case "fillText":
                 fillText(parameter);
@@ -123,8 +136,12 @@ public class JustCanvasNative extends JustV8Object {
         lineTo(mStartX, mStartY);
     }
 
+    private void fill() {
+        mShapeList.add(new DrawPath(mPath, new JustPaint(mPaintFill)));
+    }
+
     private void stroke() {
-        mShapeList.add(new DrawPath(mPath, new CloneablePaint(mPaintStroke)));
+        mShapeList.add(new DrawPath(mPath, new JustPaint(mPaintStroke)));
     }
 
     private void moveTo(String[] parameter) {
@@ -177,10 +194,19 @@ public class JustCanvasNative extends JustV8Object {
         mPath.addRect(x, y, x + width, y + height, Path.Direction.CW);
     }
 
+    private void clearRect(String[] parameter) {
+        float x = getFloat(parameter[0]), y = getFloat(parameter[1]),
+                width = getFloat(parameter[2]), height = getFloat(parameter[3]);
+        JustPaint paint = new JustPaint();
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+
+        mShapeList.add(new DrawRect(x, y, width, height, paint));
+    }
+
     private void fillText(String[] parameter) {
-        mShapeList.add(new DrawText(parameter[0],
-                getFloat(parameter[1]), getFloat(parameter[2]),
-                new CloneablePaint(mPaintFill)));
+        String text = parameter[0];
+        float x = getFloat(parameter[1]), y = getFloat(parameter[2]);
+        mShapeList.add(new DrawText(text, x, y, new JustPaint(mPaintFill)));
     }
 
     private int getInt(Object param) {

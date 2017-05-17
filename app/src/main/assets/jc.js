@@ -2,6 +2,11 @@ JustCanvas = function () {
     this._functions = "";
     this._times = 0;
 
+    this.canvas = {
+        width: JustCanvasNative.width,
+        height: JustCanvasNative.height,
+    };
+
     this._make = function() {
         var i = 0, n = arguments.length;
         var content = "[" + arguments[i++] + "]";
@@ -30,6 +35,11 @@ JustCanvas = function () {
 
     this.closePath = function() {
         this._functions += this._make("closePath");
+        this._times++;
+    };
+
+    this.fill = function() {
+        this._functions += this._make("fill");
         this._times++;
     };
 
