@@ -64,12 +64,21 @@ public class JustCanvasNative extends JustV8Object {
         mObject.add("height", mJustView.getCanvasHeight());
     }
 
+    private long methodTime = 0, paramTime = 0, invokeTime = 0;
+
     // For JavaScript to call
     public void call(String call, Integer times) {
+        methodTime = paramTime = invokeTime = 0;
+
         String[] calls = splitBy(call, times, '&');
+
         for (String item: calls) {
             this.call(item);
         }
+
+//        Log.d(LOG_TAG, "methodTime\t" + methodTime);
+//        Log.d(LOG_TAG, "invokeTime\t" + invokeTime);
+//        Log.d(LOG_TAG, "paramTime\t" + paramTime);
 
         mJustView.draw(mShapeList);
         mShapeList.clear();
@@ -78,13 +87,17 @@ public class JustCanvasNative extends JustV8Object {
     }
 
     private void call(String call) {
+
         int index = call.indexOf(']');
         int length = call.length();
         String name = call.substring(1, index);
         String[] parameter = null;
+        long start = System.currentTimeMillis();
         if (index != length - 1) {
             parameter = splitBy(call.substring(index + 1, length), 10, ',');
         }
+        long end = System.currentTimeMillis();
+        methodTime += end - start;
 
         switch (name) {
             case "log":
@@ -97,10 +110,10 @@ public class JustCanvasNative extends JustV8Object {
                 closePath();
                 break;
             case "fill":
-                fill();
+                fill(parameter);
                 break;
             case "stroke":
-                stroke();
+                stroke(parameter);
                 break;
             case "moveTo":
                 moveTo(parameter);
@@ -136,16 +149,32 @@ public class JustCanvasNative extends JustV8Object {
         lineTo(mStartX, mStartY);
     }
 
-    private void fill() {
+    private void fill(String[] parameter) {
+        String style = parameter[0];
+        float lineWidth = getFloat(parameter[1]);
+        mPaintFill.setStrokeWidth(lineWidth);
+        mPaintFill.setRgbColor(style);
         mShapeList.add(new DrawPath(mPath, new JustPaint(mPaintFill)));
     }
 
-    private void stroke() {
+    private void stroke(String[] parameter) {
+        String style = parameter[0];
+        float lineWidth = getFloat(parameter[1]);
+        mPaintStroke.setStrokeWidth(lineWidth);
+        mPaintStroke.setRgbColor(style);
         mShapeList.add(new DrawPath(mPath, new JustPaint(mPaintStroke)));
     }
 
     private void moveTo(String[] parameter) {
-        moveTo(getFloat(parameter[0]), getFloat(parameter[1]));
+        long start = System.currentTimeMillis();
+        float x = getFloat(parameter[0]), y = getFloat(parameter[1]);
+        long end = System.currentTimeMillis();
+        paramTime += end - start;
+
+        start = System.currentTimeMillis();
+        moveTo(x, y);
+        end = System.currentTimeMillis();
+        invokeTime += end - start;
     }
 
     private void moveTo(float x, float y) {
@@ -156,7 +185,15 @@ public class JustCanvasNative extends JustV8Object {
     }
 
     private void lineTo(String[] parameter) {
-        lineTo(getFloat(parameter[0]), getFloat(parameter[1]));
+        long start = System.currentTimeMillis();
+        float x = getFloat(parameter[0]), y = getFloat(parameter[1]);
+        long end = System.currentTimeMillis();
+        paramTime += end - start;
+
+        start = System.currentTimeMillis();
+        lineTo(x, y);
+        end = System.currentTimeMillis();
+        invokeTime += end - start;
     }
 
     private void lineTo(float x, float y) {
@@ -169,11 +206,15 @@ public class JustCanvasNative extends JustV8Object {
     }
 
     private void arc(String[] parameter) {
+        long start = System.currentTimeMillis();
         float x = getFloat(parameter[0]), y = getFloat(parameter[1]),
                 r = getFloat(parameter[2]), sAngle = getFloat(parameter[3]),
                 eAngle = getFloat(parameter[4]);
         boolean counterclockwise = getBoolean(parameter[5]);
+        long end = System.currentTimeMillis();
+        paramTime += end - start;
 
+        start = System.currentTimeMillis();
         RectF rectF = new RectF(x - r, y - r, x + r, y + r);
 
         //弧度与角度转换
@@ -186,12 +227,21 @@ public class JustCanvasNative extends JustV8Object {
         }
 
         mPath.addArc(rectF, sAngle, eAngle - sAngle);
+        end = System.currentTimeMillis();
+        invokeTime += end - start;
     }
 
     private void rect(String[] parameter) {
+        long start = System.currentTimeMillis();
         float x = getFloat(parameter[0]), y = getFloat(parameter[1]),
                 width = getFloat(parameter[2]), height = getFloat(parameter[3]);
+        long end = System.currentTimeMillis();
+        paramTime += end - start;
+
+        start = System.currentTimeMillis();
         mPath.addRect(x, y, x + width, y + height, Path.Direction.CW);
+        end = System.currentTimeMillis();
+        invokeTime += end - start;
     }
 
     private void clearRect(String[] parameter) {
@@ -204,8 +254,9 @@ public class JustCanvasNative extends JustV8Object {
     }
 
     private void fillText(String[] parameter) {
-        String text = parameter[0];
+        String text = parameter[0], style = parameter[3];
         float x = getFloat(parameter[1]), y = getFloat(parameter[2]);
+        mPaintFill.setRgbColor(style);
         mShapeList.add(new DrawText(text, x, y, new JustPaint(mPaintFill)));
     }
 

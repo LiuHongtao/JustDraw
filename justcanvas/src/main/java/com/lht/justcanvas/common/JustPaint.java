@@ -22,6 +22,16 @@ public class JustPaint extends Paint {
      */
     public void setRgbColor(String color) {
         int alpha = getAlpha();
+        if (color.length() < 6) {
+            char[] colorArr= color.toCharArray();
+            color = String.valueOf(colorArr[0]) +
+                    colorArr[1] +
+                    colorArr[1] +
+                    colorArr[2] +
+                    colorArr[2] +
+                    colorArr[3] +
+                    colorArr[3];
+        }
         setColor(rgb(color));
         setAlpha(alpha);
     }

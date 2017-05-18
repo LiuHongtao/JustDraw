@@ -39,12 +39,12 @@ JustCanvas = function () {
     };
 
     this.fill = function() {
-        this._functions += this._make("fill");
+        this._functions += this._make("fill", this.fillStyle, this.lineWidth);
         this._times++;
     };
 
     this.stroke = function() {
-        this._functions += this._make("stroke");
+        this._functions += this._make("stroke", this.strokeStyle, this.lineWidth);
         this._times++;
     };
 
@@ -74,7 +74,7 @@ JustCanvas = function () {
     };
 
     this.fillText = function(text, x, y) {
-        this._functions += this._make("fillText", text, x, y);
+        this._functions += this._make("fillText", text, x, y, this.fillStyle);
         this._times++;
     }
 }
@@ -84,7 +84,7 @@ function Example() {
     let angle = 0;
     let timerId = null;
     let running = false;
-    let times = 100000;
+    let times = 100;
 
     this.init = function(newCtx) {
         ctx = newCtx;
@@ -108,7 +108,6 @@ function Example() {
         drawCircle(angle);
         drawLever(angle);
         drawFpsLabel();
-
         ctx.flush();
 
         speedometer.update();
@@ -126,6 +125,8 @@ function Example() {
     function drawAxes(angle) {
         let p = normalizeAngle(Math.PI * 2 - angle);
         let p2 = normalizeAngle(Math.PI - angle);
+        ctx.strokeStyle = '#aaa';
+        ctx.lineWidth = 1;
         ctx.beginPath();
         // x and y axes
         ctx.moveTo(cx - 3 * unit, cy);
@@ -144,6 +145,7 @@ function Example() {
         ctx.lineTo(cx + 5, cy - unit);
         ctx.stroke();
         // x axis labels
+        ctx.fillStyle = '#aaa';
         ctx.fillText('π', cx + p * unit, cy + 8);
         ctx.fillText('2π', cx + p2 * unit, cy + 8);
         // y axis labels
@@ -161,12 +163,15 @@ function Example() {
             y = Math.sin(angle + x);
             ctx.lineTo(cx + x * unit, cy + y * unit);
         }
+        ctx.strokeStyle = '#fa0';
         ctx.lineWidth = 2;
         ctx.stroke();
     }
 
     function drawCircle() {
         let ccx = cx - 1.5 * unit;
+        ctx.strokeStyle = '#0af';
+        ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.arc(ccx, cy, unit, 0, 2 * Math.PI);
         ctx.stroke();
@@ -176,6 +181,8 @@ function Example() {
         let ccx = cx - 1.5 * unit;
         let x = ccx + Math.cos(t) * unit;
         let y = cy + Math.sin(t) * unit;
+        ctx.strokeStyle = '#0af';
+        ctx.fillStyle = '#fff';
         ctx.lineWidth = 2;
         ctx.beginPath();
         // lines
@@ -196,6 +203,8 @@ function Example() {
     }
 
     function drawFpsLabel() {
+        ctx.fillStyle = '#000';
+        ctx.lineWidth = 1;
         ctx.fillText('FPS: ' + speedometer.fps.toFixed(1), 30, 100);
     }
 
